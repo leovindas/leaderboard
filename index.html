@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="leaderboard">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+    <script src="http://hrajchert.github.io/angular-screenfull/js/marked.js"></script>
+    <script src="http://hrajchert.github.io/angular-screenfull/js/dist/angular-screenfull.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/2.0.0/screenfull.js"></script>
+    <script type="text/javascript" src="js/controller.js"></script>
+  </head>
+  <body>
+    <div id="wrapper" ngsf-fullscreen>
+      <a ngsf-toggle-fullscreen show-if-fullscreen-enabled>
+            <button class="view-fullscreen" show-if-fullscreen=false>Fullscreen</button>
+        </a>
+
+      <header>
+        <h3><img class="header-logo hide-xs show-gt-xs" src="https://s3-us-west-2.amazonaws.com/trainheroic-prod/logos/logo54e232d031f4a.jpg">Leaderboard</h3>
+      </header>
+      <main class="row" ng-controller="LeaderboardController as leaders" >
+        <section class="summary col-md-5">
+
+
+          <h2>Workout: {{leaderboard.workoutTitle}}</h2>
+          <h3>Test: {{leaderboard.tests[0].title}}</h3>
+          <p>{{leaderboard.tests[0].testInstructions}}</p>
+          <p>Average: {{leaderboard.testStats[0].avg | number:2 }}</p>
+
+
+        </section>
+        <section class="headline col-md-7">
+          <div class="title row">
+            <div class="col-xs-1">Rank</div>
+            <div class="col-xs-8">Athletes ({{leaderboard.testStats[0].cnt}})</div>
+            <div class="col-xs-3">{{leaderboard.tests[0].title}}</div>
+          </div>
+          <div class="leaders" >
+            <div class="fade" fade >
+              <div class="row anim" ng-repeat="leader in leaders"  >
+                <div class="col-xs-1">{{leader.rank}}</div>
+                <div class="col-xs-8" ><img ng-src="{{leader.profileImg}}" alt="" width="50" height="50" /> {{leader.userFirstName + " " + leader.userLastName}} </div>
+                <div class="col-xs-3" ng-repeat="test in leader.tests">{{test}} {{leader.rank}}</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+    </div>
+  </body>
+</html>
